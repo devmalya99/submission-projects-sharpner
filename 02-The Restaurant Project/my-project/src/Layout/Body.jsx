@@ -31,9 +31,24 @@ const Body = () => {
           <h3>{each.category}</h3>
           <h4>{each.price}</h4>
           </div>
-          
-          <button className='p-4 bg-rose-300 rounded-3xl'>Add Item++</button>
 
+          <div className='flex flex-col'>
+            <div className='flex'>
+              Qty:
+          <input 
+          className='w-12 ml-4  mb-2'
+          type='number'
+          placeholder='0'
+          name='Qty'
+          />
+            </div>
+           
+          
+          <button className='p-2 bg-rose-300 rounded-3xl'>Add Item++</button>
+
+          </div>
+
+          
           </li>
 
       ))}
