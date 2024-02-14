@@ -1,9 +1,10 @@
 
 
 import React from 'react'
-
+import mealItems from '../Data/menu'
 const Body = () => {
   return (
+    <>
     <div className="relative">
       <img
       className='w-full h-auto' 
@@ -12,15 +13,38 @@ const Body = () => {
        <p> 
   Welcome to our fine dining oasis, the epitome of culinary excellence. Appreciate the fusion of traditional
   and contemporary cuisines, prepared with locally-sourced ingredients, delivering taste and health in every bite. 
-  
-  </p>
-       
+      </p>
+      </div>
+      </div>
+
+      <div className='menuList bg-slate-100 w-1/2 ml-44 rounded-xl '>
+        <ul>
+
+       { mealItems.map((each)=>(
+        <li 
+        key={Date.now()}
+        className='flex justify-between items-center p-2 m-2 bg-slate-400 mx-2 my-4 rounded-xl'
+        
+        >
+          <div>
+          <h2> {each.name} </h2>
+          <h3>{each.category}</h3>
+          <h4>{each.price}</h4>
+          </div>
+          
+          <button className='p-4 bg-rose-300 rounded-3xl'>Add Item++</button>
+
+          </li>
+
+      ))}
+        </ul>
+      
       </div>
       
        
-        <button className='p-4 bg-rose-400'>Add Item</button>
+        
 
-    </div>
+        </>
   )
 }
 
