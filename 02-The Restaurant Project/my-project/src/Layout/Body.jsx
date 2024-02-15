@@ -1,7 +1,26 @@
-import React from "react";
+import React , {useState, createContext, useContext} from "react";
 import mealItems from "../Data/menu";
+import { myContext } from "../Context/myContext";
+
 import Modal from "../Components/Modal"
 const Body = ({showModal,setShowModal}) => {
+
+  const {qty,setQty,totalCount,setTotalCount} =useContext(myContext)
+  
+  const handleInputChange =(e)=>{
+    setQty(Number((e.target.value)))
+    
+  }
+
+  
+
+  const handleClick=()=>{
+    const newTotalCount = totalCount + qty;
+    console.log(newTotalCount);
+    setTotalCount(newTotalCount)
+    
+  }
+
   return (
     <>
       <div className="relative">
@@ -29,7 +48,7 @@ const Body = ({showModal,setShowModal}) => {
         <ul>
           {mealItems.map((each) => (
             <li
-              key={Date.now()}
+              key={each.id}
               className="flex justify-between items-center p-2 m-2 bg-slate-400 mx-2 my-4 rounded-xl"
             >
               <div>
@@ -46,10 +65,13 @@ const Body = ({showModal,setShowModal}) => {
                     type="number"
                     placeholder="0"
                     name="Qty"
+                    onChange={handleInputChange}
                   />
                 </div>
 
-                <button className="p-2 bg-rose-300 rounded-3xl">
+                <button 
+                onClick={handleClick}
+                className="p-2 bg-rose-300 rounded-3xl">
                   Add Item++
                 </button>
               </div>
