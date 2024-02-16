@@ -5,8 +5,15 @@ import ReactDOM from 'react-dom';
 
 const Modal = ({setShowModal}) => {
 
-  const {qty, totalCount,cartArr} = useContext(myContext)
-  
+  const {qty, totalCount,cartArr,setCartArr} = useContext(myContext)
+  const handleDecrease =(id)=>{
+    setCartArr(prev=>prev.map((each)=>each.id ===id ? {...each,qty: each.qty > 0 ? each.qty-1 : 0} : each))
+  }
+
+  const handleIncrease =(id)=>{
+    
+    setCartArr(prev=>prev.map((each)=>each.id===id ? {...each, qty:each.qty+1} : each))
+  }
 
   return ReactDOM.createPortal(
     <div className='fixed top-0 left-0 w-full h-full flex items-center justify-center backdrop-blur-medium bg-backdrop'>
@@ -21,8 +28,13 @@ const Modal = ({setShowModal}) => {
             <p>Per Piece:${item.price}</p>
             <p>Amount : ${item.price * item.qty}</p>
             
-            <button className='px-4 py-2 rounded-md mr-4 mt-4 bg-green-600'>+</button>
-            <button className='px-4 py-2 rounded-md ml-4 mt-4 bg-red-600'>-</button>
+            <button className='px-4 py-2 rounded-md mr-4 mt-4 bg-green-600'
+              onClick={()=>handleIncrease(item.id)}
+            >+</button>
+
+            <button className='px-4 py-2 rounded-md ml-4 mt-4 bg-red-600'
+               onClick={()=> handleDecrease(item.id)}
+            >-</button>
           </div>
           
         </li>
