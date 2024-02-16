@@ -1,25 +1,71 @@
-import React , {useState, createContext, useContext} from "react";
+import React , {useState, useEffect, createContext, useContext} from "react";
 import mealItems from "../Data/menu";
 import { myContext } from "../Context/myContext";
 
 import Modal from "../Components/Modal"
 const Body = ({showModal,setShowModal}) => {
 
-  const {qty,setQty,totalCount,setTotalCount} =useContext(myContext)
+  const {totalCount,setTotalCount, setCartArr,cartArr} =useContext(myContext)
+
+  const [qty,setQty] =useState(
+    mealItems.reduce((acc,curr)=>({...acc, [curr.id]:0}),{})
+  )
   
-  const handleInputChange =(e)=>{
-    setQty(Number((e.target.value)))
+  const [cartObj,setCartObj]=useState({});
+  const [addedItems, setAddedItems] = useState([])
+
+  const handleInputChange =(id,val)=>{
+    setQty(prev=>({...prev,[id]:val}))
     
   }
 
   
 
-  const handleClick=()=>{
-    const newTotalCount = totalCount + qty;
-    console.log(newTotalCount);
-    setTotalCount(newTotalCount)
+  const handleClick=(each,id)=>{
+
+    let newObj ={}
+    newObj.name=each.name
+    newObj.price=Number(each.price)
+    newObj.id=each.id
+    newObj.qty=parseInt(qty[id],10)
+    console.log(newObj);
+
+
+    // update cartArr only when new unique item is added oherwise just update the qty value 
+
+    let existingItem = cartArr.find(item=>item.id===newObj.id)
+    if(existingItem)
+    {
+        const updatedArr=cartArr.map((item)=>
+        item.id===newObj.id ? {...item,qty:newObj.qty}:item)
+        setCartArr(updatedArr)
+
+    }
+    else{
+      setCartArr(arr=>[...arr,newObj])
+    }
+
+  
+
     
+    
+    let sum=0;
+    for(let k in qty)
+    {
+      sum+=qty[k]
+    }
+    setTotalCount(sum)
+
+    console.log("Price:", each.price, "Type:", typeof each.price);
+    console.log("Quantity:", each.qty, "Type:", typeof each.qty);
   }
+    
+  console.log(qty);
+
+
+    console.log(cartArr)
+    
+  
 
   return (
     <>
@@ -65,12 +111,12 @@ const Body = ({showModal,setShowModal}) => {
                     type="number"
                     placeholder="0"
                     name="Qty"
-                    onChange={handleInputChange}
+                    onChange={(e)=>handleInputChange(each.id, Number(e.target.value))}
                   />
                 </div>
 
                 <button 
-                onClick={handleClick}
+                onClick={()=>handleClick(each,each.id)}
                 className="p-2 bg-rose-300 rounded-3xl">
                   Add Item++
                 </button>

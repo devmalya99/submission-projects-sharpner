@@ -5,7 +5,15 @@ import { useState , useContext } from "react"
 
 const Header = ({setShowModal ,showModal}) => {
   
-  const {qty, totalCount} = useContext(myContext)
+  const {qty, totalCount,cartArr} = useContext(myContext)
+
+  const handleClick = ()=>{
+    
+    setShowModal(!showModal)
+
+    
+
+  }
   return (
     <header className="bg-blue-500 p-4 flex justify-between items-center">
     <h1 className="text-white text-xl">CONTEXT CART</h1>
@@ -13,7 +21,7 @@ const Header = ({setShowModal ,showModal}) => {
     
     <button 
       className="flex items-center text-white" 
-      onClick={()=>setShowModal(!showModal)}
+      onClick={handleClick}
     >
       <span className="ml-2 ">
       🛒 Your Cart Item count is {totalCount}
