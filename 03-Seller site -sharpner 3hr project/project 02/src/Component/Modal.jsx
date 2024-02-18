@@ -60,7 +60,8 @@ const Modal = () => {
 
       <footer className='mt-4 mb-4 bg-gray-700 p-3 rounded-b-lg'>
         <div className='bg-slate-400 p-3 rounded-lg m-2'>
-        Total Amount: ${customersArr.reduce((total, item) => total +item.price * totalQty, 0)}
+        Total Amount: ${customersArr.reduce((total, item) => total +
+        item.price * item.lQty + item.price * item.sQty + item.price * item.mQty , 0)}
           </div>
         <button 
           className='px-2 ml-2 mr-2 border-red-500 bg-red-500 text-white rounded-xl'
