@@ -4,17 +4,20 @@ import React ,{useContext,useState} from 'react'
 import { myContext } from '../Context/MyContext'
 import Modal from './Modal'
 const Inventory = () => {
-    const {formData,setFormData,showModal,setShowModal,cartArr,setCartArr}=useContext(myContext)
+    const {formData,setFormData,showModal,cartArr,setCartArr}=useContext(myContext)
     const [qty,setQty]=useState(0)
     
 
-    const onQuantityChange = (e,each) => {
+    const onQuantityChange = (e) => {
      setQty(parseInt(e.target.value,10))
     }
 
     const handleDelete=(id)=>{
       const updatedData=formData.filter((each)=>each.id!==id)
-      setFormData(updatedData)
+       setFormData(updatedData)
+      
+        localStorage.setItem('Medicines',JSON.stringify(updatedData))
+      
     }
 
     const addToCart = (e, each) => {
