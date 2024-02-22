@@ -1,4 +1,4 @@
-import React from 'react';
+import React , {useContext, useState} from 'react';
 import {
   Card,
   CardHeader,
@@ -8,8 +8,28 @@ import {
   Button,
 } from "@material-tailwind/react";
 
+import { MyContext } from '../Context/MyContext';
+
 export default function ItemCard(props) {
   const { item } = props;
+
+  const {cartArr, setCartArr} = useContext(MyContext)
+  
+
+  const handleClick =(e)=>{
+    const cartObj ={
+      id: item.id,
+      title: item.title,
+      price: item.price,
+      imageUrl: item.imageUrl,
+      quantity:item.quantity,
+    }
+
+    setCartArr(prev=>[...prev,cartObj])
+    console.log(cartArr);
+  }
+
+
   return (
     <Card className="m-2 bg-white w-full shadow-md">
       <CardHeader color="blue-gray" className="relative h-56 overflow-hidden">
@@ -28,7 +48,12 @@ export default function ItemCard(props) {
         </Typography>
       </CardBody>
       <CardFooter className="">
-        <Button color="lightBlue" ripple="light" className="w-full">Read More</Button>
+        <Button 
+        color="lightBlue" 
+        ripple="light" 
+        className="w-full"
+        onClick={() => handleClick()}
+        >Read More</Button>
       </CardFooter>
     </Card>
   );
