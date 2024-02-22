@@ -16,18 +16,26 @@ export default function ItemCard(props) {
   const {cartArr, setCartArr} = useContext(MyContext)
   
 
-  const handleClick =(e)=>{
-    const cartObj ={
-      id: item.id,
-      title: item.title,
-      price: item.price,
-      imageUrl: item.imageUrl,
-      quantity:item.quantity,
+  const handleClick = (item) => {
+    const isItemExists = cartArr.find((each) => each.id === item.id);
+    console.log(isItemExists);
+    if(isItemExists) {
+      let newCartArr = cartArr.map((each) => 
+      each.id === item.id ?
+       { ...isItemExists, quantity: isItemExists.quantity + 1 } : each
+      );
+      setCartArr(newCartArr);
+    } else {
+      const cartObj = {
+        id: item.id,
+        title: item.title,
+        price: item.price,
+        imageUrl: item.imageUrl,
+        quantity: 1,
+      }
+      setCartArr(prev => [...prev, cartObj]);
     }
-
-    setCartArr(prev=>[...prev,cartObj])
-    console.log(cartArr);
-  }
+  };
 
 
   return (
@@ -52,9 +60,10 @@ export default function ItemCard(props) {
         color="lightBlue" 
         ripple="light" 
         className="w-full"
-        onClick={() => handleClick()}
-        >Read More</Button>
+        onClick={() => handleClick(item)}
+        >Add to Cart</Button>
       </CardFooter>
+      
     </Card>
   );
 }

@@ -9,7 +9,7 @@
     price: 100,
     
     imageUrl: 'https://prasadyash2411.github.io/ecom-website/img/Album%201.png',
-    quantity: 2,
+    quantity: 1,
     },
     
     {
@@ -19,7 +19,7 @@
     price: 50,
     
     imageUrl: 'https://prasadyash2411.github.io/ecom-website/img/Album%202.png',
-    quantity: 2,
+    quantity: 1,
     },
     
     {
@@ -41,7 +41,7 @@
     price: 100,
     
     imageUrl: 'https://prasadyash2411.github.io/ecom-website/img/Album%204.png',
-    quantity: 3,
+    quantity: 1,
     }
 ]
 
