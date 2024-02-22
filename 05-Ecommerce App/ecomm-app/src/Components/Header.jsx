@@ -2,7 +2,7 @@
 
 import React , {useContext} from 'react'
 import { MyContext } from '../Context/MyContext'
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 const Header = () => {
   const {cartArr, setCartArr,setShowModal}= useContext(MyContext)
@@ -13,15 +13,15 @@ const Header = () => {
          <div className='flex-grow  flex justify-center space-x-24'>
          
          <div className='text-gray-100 text-2xl font-semibold'>
-            <Link to="/">HOME</Link>
+            <NavLink to="/">HOME</NavLink>
         </div>
 
         <div className='text-gray-100 text-2xl font-semibold'>
-        <Link to="/store">STORE</Link>
+        <NavLink to="/store">STORE</NavLink>
         </div>
 
         <div className='text-gray-100 text-2xl font-semibold'>
-        <Link to="/about">ABOUT</Link>
+        <NavLink to="/about">ABOUT</NavLink>
         </div>
 
         </div>

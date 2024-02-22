@@ -24,7 +24,7 @@ const handleClick =()=>{
         {showModal && 
         <Modal/>
           }
-          <Button onClick={handleClick}>Log CartArr</Button>
+          
         
 
 
