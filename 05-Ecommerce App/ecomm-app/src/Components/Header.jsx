@@ -24,6 +24,10 @@ const Header = () => {
         <NavLink to="/about">ABOUT</NavLink>
         </div>
 
+        <div className='text-gray-100 text-2xl font-semibold'>
+        <NavLink to="/contact">CONTACT</NavLink>
+        </div>
+
         </div>
        
 
