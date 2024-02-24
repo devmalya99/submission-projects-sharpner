@@ -1,4 +1,6 @@
-import React , {useContext, useState} from 'react';
+import React , {useContext, useState } from 'react';
+ import { useNavigate } from 'react-router-dom';
+
 import {
   Card,
   CardHeader,
@@ -8,10 +10,19 @@ import {
   Button,
 } from "@material-tailwind/react";
 
+
 import { MyContext } from '../Context/MyContext';
 
 export default function ItemCard(props) {
   const { item } = props;
+  const navigate = useNavigate(); 
+// Declare this at the start of your ItemCard function before the return statement.
+
+ const goToDetails=(id)=>{
+  navigate(`/product/${id}`)
+
+ }
+
 
   const {cartArr, setCartArr} = useContext(MyContext)
   
@@ -55,11 +66,18 @@ export default function ItemCard(props) {
           ₹{item.price}
         </Typography>
       </CardBody>
-      <CardFooter className="">
+      <CardFooter className="flex">
+      <Button 
+        color="lightBlue" 
+        ripple="light" 
+        className="mr-2 bg-yellow-300 text-blue-gray-900"
+        onClick={()=> goToDetails(item.id)}
+        >Details</Button>
+
         <Button 
         color="lightBlue" 
         ripple="light" 
-        className="w-full"
+        className=""
         onClick={() => handleClick(item)}
         >Add to Cart</Button>
       </CardFooter>

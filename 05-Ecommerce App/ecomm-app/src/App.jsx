@@ -10,7 +10,7 @@ import AboutUs from "./Components/AboutUs";
 import { BrowserRouter as Router, Route,  Routes } from 'react-router-dom';
 import Home from "./Components/Home";
 import Contact from "./Components/Contact";
-
+import ProductDetails from "./Components/ProductDetails";
 function App() {
   const [cartArr, setCartArr] = useState([]);
   const [showModal,setShowModal] = useState(false)
@@ -31,7 +31,12 @@ function App() {
     <Route path="/store" element={ <Body /> } />
     <Route path="/about" element={<AboutUs/>}/>
     <Route path="/contact" element={<Contact/>}/>
+    <Route path="/product/:id"
+    element={<ProductDetails/>}
+    >
+      
 
+    </Route>
     </Routes>
     </MyContext.Provider>
     </Router>
