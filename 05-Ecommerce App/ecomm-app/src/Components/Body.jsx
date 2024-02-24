@@ -5,7 +5,7 @@ import ItemCArd from './Card';
 import productsArr from '../Data/Data';
 import { MyContext } from '../Context/MyContext';
 import Modal from './Modal';
-import { Button } from '@material-tailwind/react';
+
 const Body = () => {
   const {showModal,setShowModal,cartArr} = useContext(MyContext)
 const handleClick =()=>{
