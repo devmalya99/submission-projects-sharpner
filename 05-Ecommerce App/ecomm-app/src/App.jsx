@@ -14,7 +14,8 @@ import ProductDetails from "./Components/ProductDetails";
 import Login from "./Registration/Login";
 import SignUp from "./Registration/SignUp";
 import { ProtectedRoutes } from "./ProtctedRoutes/ProtectedRoutes";
-
+import Reset from "./Registration/Reset";
+import Modal from "./Components/Modal";
 
 function App() {
   const [cartArr, setCartArr] = useState([]);
@@ -25,6 +26,9 @@ function App() {
     <MyContext.Provider 
     value={{ cartArr, setCartArr ,setShowModal ,showModal}}>
     <Header/>
+    {showModal && 
+        <Modal/>
+          }
     
     <div className="flex items-center justify-center p-8 mb-8 bg-blue-gray-800  ">
       <h1 className="text-4xl  text-blue-gray-100 font-serif font-bold ">
@@ -47,12 +51,12 @@ function App() {
     
     <Route path="/login" element={<Login/>}/>
     <Route path="/signup" element={<SignUp/>}/>
+    <Route path="/reset-password" element={<Reset />}/>
+
     <Route path="/product/:id"
     element={<ProductDetails/>}
-    >
-      
+    ></Route>
 
-    </Route>
     </Routes>
     </MyContext.Provider>
     </Router>

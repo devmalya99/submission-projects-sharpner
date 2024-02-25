@@ -62,6 +62,9 @@ const signin = async ()=>{
                 <div>
                     <h2 className='text-white'>Dont have an account <Link className=' text-yellow-500 font-bold' to={'/signup'}>Signup</Link></h2>
                 </div>
+                <div>
+                    <h2 className='text-white'>Forgot password ? <Link className=' text-yellow-500 font-bold' to={'/reset-password'}>Reset Here</Link></h2>
+                </div>
             </div>
         </div>
     )

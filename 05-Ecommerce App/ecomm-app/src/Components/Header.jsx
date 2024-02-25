@@ -14,6 +14,18 @@ const Header = () => {
     localStorage.removeItem('user')
     Navigate('/login')
   }
+  const handleCartClick = ()=>{
+    if (user)
+    {
+      setShowModal((prev) => !prev)
+    }
+    else{
+      Navigate('/login');
+    }
+
+    
+
+  }
   return (
     <div className="flex  p-2 justify-between bg-gray-800">
       <div className="flex-grow  flex justify-center space-x-12">
@@ -53,7 +65,7 @@ const Header = () => {
       </div>
 
       <div
-        onClick={() => setShowModal((prev) => !prev)}
+        onClick={ handleCartClick}
         className="text-black-100 text-xl p-2 bg-yellow-400  rounded-xl font-semibold cursor-pointer"
       >
         CART {Number(total)}

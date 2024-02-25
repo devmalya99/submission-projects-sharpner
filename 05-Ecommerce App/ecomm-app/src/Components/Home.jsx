@@ -2,7 +2,8 @@ import React from 'react';
 import Footer from './Footer';
 import Carousel from './Carousel.jsx';
 import FeaturedCategoryCard from './FeaturedCategoryCard.jsx';
-// import TestimonialCard from './TestimonialCard';
+import TestimonialCard from './TestimonialCard';
+import HomeProducts from './HomeProducts.jsx';
 // import EventCard from './EventCard';
 // import PromotionCard from './PromotionCard';
 
@@ -35,13 +36,13 @@ const Home = () => {
     image: 'https://images.unsplash.com/photo-1532285023254-17336184c0e5?w=400&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxjb2xsZWN0aW9uLXBhZ2V8NHxxb2w1a1BwdGkyb3x8ZW58MHx8fHx8' },
   ];
   
-//   const testimonials = [
-//     { id: 1, name: 'John Doe', profession: 'Developer', testimony: 'This is awesome!', image: 'image-url' },
-//     { id: 2, name: 'Jane Doe', profession: 'Designer', testimony: 'Great experience!', image: 'image-url' },
-//     { id: 3, name: 'Bob Smith', profession: 'Manager', testimony: 'Saved time and effort', image: 'image-url' },
-//     { id: 4, name: 'Alice Johnson', profession: 'Graphic artist', testimony: 'Impressive range!', image: 'image-url' },
-//     { id: 5, name: 'Charlie Brown', profession: 'Freelancer', testimony: 'Good quality service', image: 'image-url' },
-//   ];
+  const testimonials = [
+    { id: 1, name: 'John Doe', profession: 'Developer', testimony: 'This is awesome!', image: 'image-url' },
+    { id: 2, name: 'Jane Doe', profession: 'Designer', testimony: 'Great experience!', image: 'image-url' },
+    { id: 3, name: 'Bob Smith', profession: 'Manager', testimony: 'Saved time and effort', image: 'image-url' },
+    { id: 4, name: 'Alice Johnson', profession: 'Graphic artist', testimony: 'Impressive range!', image: 'image-url' },
+    { id: 5, name: 'Charlie Brown', profession: 'Freelancer', testimony: 'Good quality service', image: 'image-url' },
+  ];
   
 //   const upcomingEvents = [
 //     { id: 1, name: 'Event 1', description: 'Event description', image: 'image-url', date: '2022-10-10' },
@@ -59,37 +60,44 @@ const Home = () => {
 //     { id: 5, title: 'Promotion 5', description: 'Promotion description', image: 'image-url', expireDate: '2023-04-12' },
 //   ];
 
-  return (
-    <>
-    <div className="min-h-screen bg-gray-100 text-gray-800 px-4">
-      <div className="container mx-auto">
-        <Carousel products={products} title="Featured Products" />
+return (
+  <>
+  <div className="min-h-screen bg-gray-100 text-gray-800 py-12 px-4">
+    <div className="container mx-auto bg-white rounded-lg shadow-lg overflow-hidden">
+      
+      <Carousel products={products} title="Featured Products" />
 
-        <section className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
-          {featuredCategories.map((category) => (
-            <FeaturedCategoryCard key={category.id} {...category} />
-          ))}
-        </section>
+      <section className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8 p-8 bg-indigo-100 rounded-lg">
+        {featuredCategories.map((category) => (
+          <FeaturedCategoryCard key={category.id} {...category} className="bg-white rounded p-5 shadow"/>
+        ))}
+      </section>
 
-        <section className="mt-8">
-          <h2 className="text-2xl font-semibold mb-4">New Products</h2>
-          <Carousel products={products.slice(0, 3)} title="New Arrivals" />
-        </section>
-      </div>
+      <section className="mt-8 p-8 bg-purple-100 rounded-lg">
+        <h2 className="text-2xl font-semibold mb-4">New Products</h2>
+        <Carousel products={products.slice(0, 3)} title="New Arrivals" className="shadow"/>
+      </section>
 
-      <Footer />
-    </div>
-  </>
-  )}
+      <section>
+        <HomeProducts />
+      </section>
 
-      {/* <section className="mt-8">
+       <section className="mt-8 p-8 bg-green-100 rounded-lg">
         <h2 className="text-2xl font-semibold mb-4">Testimonials</h2>
         <div className="grid grid-cols-2 gap-4">
           {testimonials.map((testimonial) => (
-            <TestimonialCard key={testimonial.id} {...testimonial} />
+            <TestimonialCard key={testimonial.id} {...testimonial} className="bg-white rounded p-5 shadow"/>
           ))}
         </div>
-      </section> */}
+      </section> 
+
+
+
+    </div>
+    <Footer className="bg-blue-300 mt-8 rounded-t-lg"/>
+  </div>
+  </>
+)}
 
       {/* <section className="mt-8">
         <h2 className="text-2xl font-semibold mb-4">Upcoming Events</h2>

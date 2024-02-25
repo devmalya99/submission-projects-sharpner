@@ -31,7 +31,7 @@ const Modal = () => {
     return (
       <div
         className={`fixed z-10 inset-0 flex justify-end items-start bg-black bg-opacity-50 ${showModal ? "" : "hidden"}`}
-        style={{ backdropFilter: "blur(5px)" }}
+        style={{ backdropFilter: "blur(5px)", zIndex: 9999 }}
       >
         <div
           className="mt-16 mr-4 p-6 rounded-md w-1/4 overflow-auto"
