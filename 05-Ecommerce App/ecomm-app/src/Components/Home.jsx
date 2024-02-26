@@ -3,7 +3,10 @@ import Footer from './Footer';
 import Carousel from './Carousel.jsx';
 import FeaturedCategoryCard from './FeaturedCategoryCard.jsx';
 import TestimonialCard from './TestimonialCard';
-import HomeProducts from './HomeProducts.jsx';
+
+import { lazy, Suspense } from 'react';
+const HomeProducts = lazy(() => import('./HomeProducts'));
+
 // import EventCard from './EventCard';
 // import PromotionCard from './PromotionCard';
 
@@ -44,21 +47,6 @@ const Home = () => {
     { id: 5, name: 'Charlie Brown', profession: 'Freelancer', testimony: 'Good quality service', image: 'image-url' },
   ];
   
-//   const upcomingEvents = [
-//     { id: 1, name: 'Event 1', description: 'Event description', image: 'image-url', date: '2022-10-10' },
-//     { id: 2, name: 'Event 2', description: 'Event description', image: 'image-url', date: '2022-11-10' },
-//     { id: 3, name: 'Event 3', description: 'Event description', image: 'image-url', date: '2022-12-10' },
-//     { id: 4, name: 'Event 4', description: 'Event description', image: 'image-url', date: '2023-01-10' },
-//     { id: 5, name: 'Event 5', description: 'Event description', image: 'image-url', date: '2023-02-10' },
-//   ];
-  
-//   const promotions = [
-//     { id: 1, title: 'Promotion 1', description: 'Promotion description', image: 'image-url', expireDate: '2022-12-12' },
-//     { id: 2, title: 'Promotion 2', description: 'Promotion description', image: 'image-url', expireDate: '2023-01-12' },
-//     { id: 3, title: 'Promotion 3', description: 'Promotion description', image: 'image-url', expireDate: '2023-02-12' },
-//     { id: 4, title: 'Promotion 4', description: 'Promotion description', image: 'image-url', expireDate: '2023-03-12' },
-//     { id: 5, title: 'Promotion 5', description: 'Promotion description', image: 'image-url', expireDate: '2023-04-12' },
-//   ];
 
 return (
   <>
@@ -78,9 +66,13 @@ return (
         <Carousel products={products.slice(0, 3)} title="New Arrivals" className="shadow"/>
       </section>
 
-      <section>
+      <React.Suspense fallback={<div>Loading...</div>}>
+         <section>
         <HomeProducts />
       </section>
+      </React.Suspense>
+
+     
 
        <section className="mt-8 p-8 bg-green-100 rounded-lg">
         <h2 className="text-2xl font-semibold mb-4">Testimonials</h2>
@@ -99,24 +91,7 @@ return (
   </>
 )}
 
-      {/* <section className="mt-8">
-        <h2 className="text-2xl font-semibold mb-4">Upcoming Events</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          {upcomingEvents.map((event) => (
-            <EventCard key={event.id} {...event} />
-          ))}
-        </div>
-      </section> */}
 
-      {/* <section className="mt-8">
-        <h2 className="text-2xl font-semibold mb-4">Promotions</h2>
-        <div className="grid grid-cols-2 gap-4">
-          {promotions.map((promotion) => (
-            <PromotionCard key={promotion.id} {...promotion} />
-          ))}
-        </div>
-      </section> */}
-      
     
      
 export default Home;

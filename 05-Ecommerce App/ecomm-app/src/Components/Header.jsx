@@ -3,9 +3,36 @@ import { MyContext } from "../Context/MyContext";
 import { NavLink , useNavigate } from "react-router-dom";
 //import { useAuth0 } from "@auth0/auth0-react";
 //import { Button } from "@material-tailwind/react";
+import {  useLocation } from "react-router-dom";
+import { useEffect } from "react";
+
+
+
 const Header = () => {
+
+  const Navigate = useNavigate();
+  const location = useLocation();
+
+  const checkSession = () => {
+    const loginTime = localStorage.getItem('loginTime');
+    
+    if(loginTime) {
+      const currentTime = new Date().getTime();
+
+    if (currentTime - loginTime > 10*60*1000) { // 5 minutes in ms
+      localStorage.removeItem('user');
+      Navigate('/login');
+      alert('Session expired. Please re-login.');
+    }
+  }
+  };
+
+  useEffect(() => {
+    checkSession();
+  }, [location]);
+
+
   const user = JSON.parse(localStorage.getItem('user'))
-   const Navigate = useNavigate()
   const { cartArr, setShowModal } = useContext(MyContext);
   const total = cartArr.reduce((a, c) => a + c.quantity, 0);
   //const { loginWithRedirect, isAuthenticated, logout, user } = useAuth0();

@@ -1,13 +1,13 @@
 
 import { Button } from "@material-tailwind/react";
  
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import './App.css'
 import Header  from "./Components/Header";
 import Body  from "./Components/Body";
 import { MyContext } from "./Context/MyContext";
 import AboutUs from "./Components/AboutUs";
-import { BrowserRouter as Router, Route,  Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Route,  Routes , useNavigate , useLocation } from 'react-router-dom';
 import Home from "./Components/Home";
 import Contact from "./Components/Contact";
 import ProductDetails from "./Components/ProductDetails";
@@ -21,6 +21,9 @@ function App() {
   const [cartArr, setCartArr] = useState([]);
   const [showModal,setShowModal] = useState(false)
    const [isLogIn, setIsLogIn] = useState(false)
+
+
+
   return (
     <Router>
     <MyContext.Provider 

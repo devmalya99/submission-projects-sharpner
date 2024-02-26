@@ -18,6 +18,8 @@ const signin = async ()=>{
      try {
          const user = await signInWithEmailAndPassword(auth,email, password);
          const users = localStorage.setItem('user' , JSON.stringify(user))
+         const loginTime = new Date().getTime();
+         localStorage.setItem('loginTime', loginTime);
          Navigate('/store')
          alert("Signin Successful")
          setIsLogIn(true)
