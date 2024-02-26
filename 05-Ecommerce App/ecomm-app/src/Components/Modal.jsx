@@ -1,13 +1,54 @@
-import React, { useContext } from "react";
+import React, { useContext , useEffect } from "react";
 import { MyContext } from "../Context/MyContext";
 
 const Modal = () => {
   const { showModal, setShowModal, cartArr, setCartArr } = useContext(
     MyContext
   );
-  const removeFromCart = (id) => {
+
+  const Email = JSON.parse(localStorage.getItem('user')).user.email
+  
+
+  useEffect(()=>{
+    
+    const fetchData = async ()=>
+    {
+       
+        const emailKey = Email.replace('.',',');
+       const res = await fetch(`https://fir-auth-01-3c109-default-rtdb.firebaseio.com/cartUserData/${emailKey}.json`)
+        const resData = await res.json()
+        console.log("Data fetched from backend",resData);
+        // Use empty array as default value if resData is null
+        setCartArr(resData && Array.isArray(resData.cartArr) ? resData.cartArr : [])
+    }
+    fetchData()
+    console.log("cartArr for modal is ", cartArr)
+    
+},[])
+
+
+  const removeFromCart = async (id) => {
+    // First, filter the array
     const filteredArr = cartArr.filter((each) => each.id !== id);
+     
+    // Setting the state
     setCartArr(filteredArr);
+
+    //Update in Firebase
+    const emailKey = Email.replace('.',',');
+    const res = await fetch(`https://fir-auth-01-3c109-default-rtdb.firebaseio.com/cartUserData/${emailKey}.json`,
+    {
+      method:'PUT',
+      headers:{
+        "Content-Type":"application/json"
+      },
+      // Sending the filtered array
+      body: JSON.stringify({cartArr:filteredArr})
+    })
+
+    const data = await res.json();
+    console.log("filtered data sent to firebase",data);
+
   };
 
   const handleDecrease =(id)=>{

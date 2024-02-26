@@ -14,6 +14,8 @@ import {
 import { MyContext } from '../Context/MyContext';
 
 export default function ItemCard(props) {
+  const loggedUser = JSON.parse(localStorage.getItem('user'))
+  const Email = loggedUser.user.email
   const { item } = props;
   const navigate = useNavigate(); 
 // Declare this at the start of your ItemCard function before the return statement.
@@ -27,7 +29,10 @@ export default function ItemCard(props) {
   const {cartArr, setCartArr} = useContext(MyContext)
   
 
-  const handleClick = (item) => {
+  const handleClick = async (item) => {
+    console.log("added")
+    console.log("loggedUser",Email)
+
     const isItemExists = cartArr.find((each) => each.id === item.id);
     console.log(isItemExists);
     if(isItemExists) {
@@ -36,6 +41,7 @@ export default function ItemCard(props) {
        { ...isItemExists, quantity: isItemExists.quantity + 1 } : each
       );
       setCartArr(newCartArr);
+      console.log(cartArr)
     } else {
       const cartObj = {
         id: item.id,
@@ -45,7 +51,22 @@ export default function ItemCard(props) {
         quantity: 1,
       }
       setCartArr(prev => [...prev, cartObj]);
+      console.log(cartArr)
     }
+
+    //Put  req to firebase to store and update cartArr
+    const emailKey = Email.replace('.',',');
+    const res=await fetch(`https://fir-auth-01-3c109-default-rtdb.firebaseio.com/cartUserData/${emailKey}.json` ,
+    {
+      method:"PUT",
+          headers:{
+            "Content-Type":"application/json"
+         },
+      body: JSON.stringify({cartArr })
+    })
+    const data=await res.json()
+    console.log(data)
+
   };
 
 

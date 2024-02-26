@@ -1,8 +1,11 @@
 import { Link , useNavigate} from 'react-router-dom'
-import { useState } from 'react'
+import { useState , useContext } from 'react'
 import { signInWithEmailAndPassword} from 'firebase/auth';
 import {auth} from '../Firebase/FirebaseConfig'
+import { MyContext } from '../Context/MyContext'
 const Login=()=> {
+
+    const {isLogIn,setIsLogIn} = useContext(MyContext)
 
     const Navigate = useNavigate()
 
@@ -17,6 +20,9 @@ const signin = async ()=>{
          const users = localStorage.setItem('user' , JSON.stringify(user))
          Navigate('/store')
          alert("Signin Successful")
+         setIsLogIn(true)
+         console.log("is user logged in",isLogIn)
+         console.log("users in ls",users)
          setEmail("");
          setPassword("");
      } 

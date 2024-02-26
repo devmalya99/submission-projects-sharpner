@@ -20,15 +20,22 @@ import Modal from "./Components/Modal";
 function App() {
   const [cartArr, setCartArr] = useState([]);
   const [showModal,setShowModal] = useState(false)
- 
+   const [isLogIn, setIsLogIn] = useState(false)
   return (
     <Router>
     <MyContext.Provider 
-    value={{ cartArr, setCartArr ,setShowModal ,showModal}}>
+    value={{ 
+      cartArr, 
+      setCartArr ,
+      setShowModal,
+      showModal,
+      isLogIn,
+      setIsLogIn
+      }}>
+
     <Header/>
-    {showModal && 
-        <Modal/>
-          }
+
+    {showModal && <Modal/>}
     
     <div className="flex items-center justify-center p-8 mb-8 bg-blue-gray-800  ">
       <h1 className="text-4xl  text-blue-gray-100 font-serif font-bold ">

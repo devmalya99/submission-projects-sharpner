@@ -9,6 +9,7 @@ const Body = () => {
   const handleClick = () => {
     console.log(cartArr);
   };
+  
   return (
     <>
       <div className="w-full p-2  bg-blue-500">

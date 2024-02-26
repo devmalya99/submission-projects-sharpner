@@ -17,7 +17,10 @@ const Header = () => {
   const handleCartClick = ()=>{
     if (user)
     {
+      // retrieve stored cartArr as userCartData from firebase and setCartArr( userCartData)
+
       setShowModal((prev) => !prev)
+      console.log("users in ls",user.user.email)
     }
     else{
       Navigate('/login');
