@@ -6,7 +6,26 @@ import Modal from './Modal'
 const Inventory = () => {
     const {formData,setFormData,showModal,cartArr,setCartArr}=useContext(myContext)
     const [qty,setQty]=useState(0)
-    
+    const saveToBackEnd = (newCartData) => {
+      
+       //  for saving cart data in firebase
+       newCartData.forEach(item=>{
+
+const res= fetch(`https://movieapp-firebase-basic-default-rtdb.firebaseio.com/medicineData/${item.id}.json` ,{
+         method:"PATCH",
+         headers:{
+           'Content-Type':'application/json'
+         },
+         body:JSON.stringify(item)
+       })
+       .catch((error) => {
+        console.error('Error:', error);
+       })
+      })
+       
+       
+
+    }
 
     const onQuantityChange = (e) => {
      setQty(parseInt(e.target.value,10))
@@ -34,6 +53,8 @@ const Inventory = () => {
         );
     
         setCartArr(updatedCartArr);
+        
+
       } else {
         let newObj = {
           name: each.name,
@@ -44,6 +65,7 @@ const Inventory = () => {
         };
     
         setCartArr((prev) => [...prev, newObj]);
+       
       }
     
       let updatedData = formData.map((item) =>
@@ -51,6 +73,16 @@ const Inventory = () => {
       );
     
       setFormData(updatedData);
+
+      setCartArr((prev)=>{
+        const updatedData=[...prev]
+        saveToBackEnd(updatedData);
+        return updatedData
+      })
+
+        
+
+         console.log('cartArr is after bckend save ',cartArr);
 
 
     };

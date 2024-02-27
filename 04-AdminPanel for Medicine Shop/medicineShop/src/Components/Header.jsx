@@ -25,7 +25,8 @@ const Header = () => {
       className="flex items-center text-white" 
       onClick={handleClick}
     >
-      <span className="ml-2 ">
+      <span
+      className="ml-2">
       🛒 Your Cart Item count is {Number(totalQty)}
       </span>
     </button>

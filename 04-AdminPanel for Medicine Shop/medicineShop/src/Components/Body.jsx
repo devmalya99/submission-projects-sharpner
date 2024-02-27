@@ -30,7 +30,7 @@ const Body = () => {
     console.log(productObj);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (
       productObj.name &&
@@ -41,6 +41,21 @@ const Body = () => {
       productObj.avlQty > 0
     ) {
       setFormData((arr) => [...arr, productObj]);
+      
+      //save product data to backend
+      await fetch ("https://movieapp-firebase-basic-default-rtdb.firebaseio.com/productData/"+productObj.id+".json",{
+        method:"PUT",
+        headers:{
+          'Content-Type':'application/json'
+        },
+        body:JSON.stringify(productObj)
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+      })
+
+
+
     } else {
       alert('Please fill all the fields');
     }
@@ -55,16 +70,23 @@ const Body = () => {
     formRef.current.reset()
   };
 
-   useEffect(()=>{
-    if(formData.length>0) {
-      localStorage.setItem('Medicines',JSON.stringify(formData))}
-   },[formData]);
+  //Save to local storage
+  //  useEffect(()=>{
+  //   if(formData.length>0) {
+  //     localStorage.setItem('Medicines',JSON.stringify(formData))}
+  //  },[formData]);
 
    useEffect(()=>{
-    const savedData= JSON.parse(localStorage.getItem('Medicines'))
-    if(savedData && savedData.length > 0){
-      setFormData(savedData)
-    } 
+
+    const fetchData = async ()=>{
+      const res=await fetch("https://movieapp-firebase-basic-default-rtdb.firebaseio.com/productData.json")
+      const data=await res.json()
+      const resArray=data ? Object.keys(data).map(key=>data[key]) : []
+      setFormData(resArray)
+    }
+
+    fetchData();
+    console.log("data fetched From backend")
    },[])
 
   

@@ -3,6 +3,7 @@
 import React,{useContext} from 'react'
 import ReactDOM from 'react-dom'
 import { myContext } from '../Context/MyContext'
+import { useEffect } from 'react'
 const Modal = () => {
 
   const {cartArr,setCartArr,setShowModal,formData} =useContext(myContext)
@@ -23,6 +24,21 @@ const Modal = () => {
         ))
       }
 
+      useEffect(() => {
+        const fetchData = async () => {
+          const response = await fetch("https://movieapp-firebase-basic-default-rtdb.firebaseio.com/medicineData.json");
+          const data = await response.json();
+          // transform object into array
+          const resultArray = Object.keys(data).map((key) => ({
+            ...data[key]
+          }));
+          setCartArr(resultArray);
+        }
+        fetchData();
+        console.log("cartArr for modal after fetching is ", cartArr)
+
+      }, []);
+      
 
 
     return ReactDOM.createPortal(
