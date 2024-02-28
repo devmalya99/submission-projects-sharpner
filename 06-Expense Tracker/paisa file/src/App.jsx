@@ -9,6 +9,7 @@ import Login from './SIGN PAGE/Login'
 import Signup from './SIGN PAGE/Signup'
 import Forgot from './SIGN PAGE/Forgot'
 import Home from './Home/Home'
+import Profile from './Pages/Profile'
 
 function App() {
  
@@ -21,7 +22,7 @@ function App() {
             <Route path="/signup" element={<Signup/>} />
             <Route path="/forgotPassword" element={<Forgot/>} />
             <Route path="/home" element={<Home/>} />
-        
+            <Route path="/profile" element={<Profile/>} />
         </Routes>
       </BrowserRouter>
   </>

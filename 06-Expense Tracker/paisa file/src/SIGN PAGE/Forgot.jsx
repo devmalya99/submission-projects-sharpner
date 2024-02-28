@@ -8,8 +8,7 @@ const Forgot = () => {
   let logo_alt = "My Money Logo"
 
   const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-  const [confirmPassword, setConfirmPassword] = useState('')
+ 
   
   const Navigate = useNavigate()
 
@@ -17,16 +16,15 @@ const Forgot = () => {
 
   const handleFormSubmit = async (e)=>{
       e.preventDefault()
-      if(email.trim()==='' || password.trim()==='' || confirmPassword.trim()===''){
+      if(email.trim()===''){
           alert('please enter all the fields')
       }
 
-      if(password !== confirmPassword){
-          alert('passwords do not match')
-      }
+     
 
       try {
         await sendPasswordResetEmail(auth, email)
+        setEmail('')
         alert("Password reset email sent! Check your inbox.");
         Navigate('/')
       }
