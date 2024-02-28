@@ -1,11 +1,26 @@
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { getDatabase , ref , set} from "firebase/database"
-import {getAuth} from 'firebase/auth'
+import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import { getDatabase, ref, set, get } from "firebase/database";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 
 const ProfilePage = () => {
-  const [fullName, setFullName] = useState('');
-  const [profilePhoto, setProfilePhoto] = useState('');
+  const [fullName, setFullName] = useState("");
+  const [profilePhoto, setProfilePhoto] = useState("");
+
+  useEffect(() => {
+    const auth = getAuth();
+    onAuthStateChanged(auth, async (user) => {
+      if (user) {
+        const db = getDatabase();
+        const profileRef = ref(db, `users/${user.uid}`);
+        const profileSnapshot = await get(profileRef);
+        if (profileSnapshot.exists()) {
+          setFullName(profileSnapshot.val().name || "");
+          setProfilePhoto(profileSnapshot.val().profilePhoto || "");
+        }
+      }
+    });
+  }, []);
 
   const handleProfileUpdate = async (e) => {
     e.preventDefault();
@@ -14,23 +29,24 @@ const ProfilePage = () => {
 
     const db = getDatabase();
     set(ref(db, `users/${userId}`), {
-        name: fullName,
-        profilePhoto: profilePhoto
-    })
+      name: fullName,
+      profilePhoto: profilePhoto,
+    });
+    alert("Profile updated successfully!");
 
-    setFullName('')
-    setProfilePhoto('')
-    
-
-
-  }
+    setFullName("");
+    setProfilePhoto("");
+  };
 
   return (
     <div className="p-8 bg-gray-200">
       <h1 className="text-2xl font-bold mb-4">Contact Details</h1>
       <form onSubmit={handleProfileUpdate}>
         <div className="mb-4">
-          <label htmlFor="fullName" className="block text-gray-700 font-bold mb-2">
+          <label
+            htmlFor="fullName"
+            className="block text-gray-700 font-bold mb-2"
+          >
             Full Name:
           </label>
           <input
@@ -42,7 +58,10 @@ const ProfilePage = () => {
           />
         </div>
         <div className="mb-4">
-          <label htmlFor="profilePhoto" className="block text-gray-700 font-bold mb-2">
+          <label
+            htmlFor="profilePhoto"
+            className="block text-gray-700 font-bold mb-2"
+          >
             Profile Photo URL:
           </label>
           <input
@@ -53,19 +72,16 @@ const ProfilePage = () => {
             className="appearance-none border rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline"
           />
         </div>
-        <button 
-        type='submit'
-        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+        <button
+          type="submit"
+          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+        >
           Update
         </button>
         <button className="bg-red-400 ml-4 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
-            <Link to="/home">
-            Cancel
-            </Link>
-            
+          <Link to="/home">Cancel</Link>
         </button>
       </form>
-     
     </div>
   );
 };
