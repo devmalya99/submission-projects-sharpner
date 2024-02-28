@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Link , useNavigate} from "react-router-dom";
 import { signInWithEmailAndPassword} from 'firebase/auth';
 import {auth} from '../Firebase/FirebaseConfig'
-
+import Header from '../Components/Header'
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -36,28 +36,18 @@ const Login = () => {
   };
   return (
 
-/////////////
+    <>
+    <Header/>
+    <section className="bg-white-800 dark:bg-gray-900">
+      <div className="grid grid-cols-2 md:h-screen lg:py-0 px-6 py-8 mx-auto items-center justify-items-center">
+        <img className="justify-self-center"
+             src="https://expenseless.netlify.app/static/media/header-cover.feb3609bcec11e31f808.jpg"
+             alt="Paisa Kaha Gaya Image"
+             width="740"
+             height="582" />
+        <div className="bg-white w-full max-w-2xl p-6 m-4 rounded-lg  dark:bg-gray-800 dark:border dark:border-gray-700 md:mt-0 sm:max-w-md xl:p-0">
 
-<section className="flex flex-col md:flex-row min-h-screen bg-gray-900">
-  <aside className="flex flex-col-1 items-center justify-center bg-gray-800 p-10">
-    <img
-      className="w-20 h-20 mb-8"
-      src="https://t4.ftcdn.net/jpg/04/53/70/41/360_F_453704176_fRLaZTHGmRZmM6BpZZe2PT17DBsjb4md.jpg"
-      alt="Flowbite logo"
-    />
-    <h2 className="mb-4 text-3xl font-semibold text-white">
-      Expense Tracker 
-    </h2>
-    
-  </aside>
-
-  <div className="flex flex-1 items-center justify-center p-10">
-    <div className="flex flex-col space-y-5 bg-white p-10 rounded-lg">
-      <h1 className="text-2xl font-semibold text-gray-900" tabIndex="0">
-        Sign in to your account
-      </h1>
-      
-      <form
+        <form
               onSubmit={handleFormSubmit}
               className="space-y-4 md:space-y-6"
               action="#"
@@ -138,9 +128,11 @@ const Login = () => {
                 </Link>
               </p>
             </form>
-    </div>
-  </div>
-</section>
+          </div>
+
+      </div>
+    </section>
+  </>
     
            
 

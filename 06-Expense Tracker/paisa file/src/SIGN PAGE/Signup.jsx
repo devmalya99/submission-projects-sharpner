@@ -3,7 +3,7 @@ import {useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import {auth} from '../Firebase/FirebaseConfig'
 import {createUserWithEmailAndPassword} from 'firebase/auth'
-
+import Header from '../Components/Header'
 const Signup = () => {
 
     const [email, setEmail] = useState('')
@@ -46,19 +46,19 @@ const Signup = () => {
 
     }
     
-  return (
-    <section className="bg-gray-50 dark:bg-gray-900">
-      <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
-        <a href="#" className="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white">
-            <img className="w-8 h-8 mr-2" src="https://t4.ftcdn.net/jpg/04/53/70/41/360_F_453704176_fRLaZTHGmRZmM6BpZZe2PT17DBsjb4md.jpg"/>
-            Paisa Kaha Gaya    
-        </a>
-        <div className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
-            <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
-                <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white" tabIndex="0">
-                    Sign Up for New Account
-                </h1>
-                <form 
+    return (
+        <>
+          <Header/>
+          <section className="bg-white-800 dark:bg-gray-900">
+            <div className="grid grid-cols-2 md:h-screen lg:py-0 px-6 py-8 mx-auto items-center justify-items-center">
+              <img className="justify-self-center"
+                   src="https://expenseless.netlify.app/static/media/header-cover.feb3609bcec11e31f808.jpg"
+                   alt="Paisa Kaha Gaya Image"
+                   width="740"
+                   height="582" />
+              <div className="bg-white w-full max-w-2xl p-6 m-4 rounded-lg  dark:bg-gray-800 dark:border dark:border-gray-700 md:mt-0 sm:max-w-md xl:p-0">
+     
+              <form 
                 onSubmit={handleFormSubmit}
                 className="space-y-4 md:space-y-6" action="#">
                     <div>
@@ -92,11 +92,12 @@ const Signup = () => {
                         Already have an account? <Link to="/" aria-label="Sign Up" tabIndex="0" className="font-medium text-primary-600 hover:underline dark:text-primary-500">Login</Link>
                     </p>
                 </form>
+                </div>
+    
             </div>
-        </div>
-    </div>
-</section>
-  )
+          </section>
+        </>
+      )
 }
 
 export default Signup
