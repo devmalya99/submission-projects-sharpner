@@ -4,6 +4,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import {auth} from '../Firebase/FirebaseConfig'
 import {createUserWithEmailAndPassword} from 'firebase/auth'
 import Header from '../Components/Header'
+import Features from '../Components/Features'
 const Signup = () => {
 
     const [email, setEmail] = useState('')
@@ -96,6 +97,7 @@ const Signup = () => {
     
             </div>
           </section>
+          <Features/>
         </>
       )
 }

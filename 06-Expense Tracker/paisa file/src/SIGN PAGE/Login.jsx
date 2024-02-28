@@ -3,6 +3,7 @@ import { Link , useNavigate} from "react-router-dom";
 import { signInWithEmailAndPassword} from 'firebase/auth';
 import {auth} from '../Firebase/FirebaseConfig'
 import Header from '../Components/Header'
+import  Features from '../Components/Features'
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -132,6 +133,8 @@ const Login = () => {
 
       </div>
     </section>
+
+    <Features/>
   </>
     
            
