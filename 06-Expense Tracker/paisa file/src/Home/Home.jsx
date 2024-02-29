@@ -3,7 +3,33 @@ import { Link , useNavigate} from 'react-router-dom';
 import { getDatabase, ref, get } from "firebase/database";
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import AddExpenseCard from '../CardsComponents/AddExpenseCard';
+import {useReducer} from 'react';
+import { createContext } from 'react'
+
+const initialState = {
+  expenses:[],
+}
+
+const reducer = (state, action) => {
+  switch(action.type){
+    case 'ADD_EXPENSE':
+      return {...state,expenses:[...state.expenses,action.payload]}
+     
+    case 'DELETE_EXPENSE':
+      return {...state, expenses: state.expenses.filter((expense) => expense.id !== action.id)}
+    default:
+      return state
+  
+    }
+
+}
+
+export const ExpenseContext = createContext()
+
 const Home = () => {
+
+
+  const [state , dispatch] = useReducer(reducer,initialState)
   const [isProfileComplete, setProfileComplete] = useState(false);
   const Navigate = useNavigate();
   useEffect(() => {
@@ -18,11 +44,33 @@ const Home = () => {
         }
       }
     })
+    console.log("state is",state)
   },[])
 
   const logout =()=>{
     localStorage.removeItem('user')
     Navigate('/')
+  }
+
+  const ExpenseItem = ({title,amount,category,id, dispatch})=>{
+    return(
+      <div className="md:flex md:items-center md:justify-between">
+        <div className="flex justify-start items-center w-full md:w-auto">
+         <li>
+      <h3>{title}</h3>
+      <p>Amount: {amount}</p>
+      <p>Category: {category}</p>
+    </li>
+
+    <button 
+    onClick={() => dispatch({ type: 'DELETE_EXPENSE', id })}
+    className='text-white-500  hover:font-semibold  ml-8 p-2  bg-red-500 hover:bg-red-700'>
+      Delete
+    </button>
+    </div>
+      </div>
+     
+    )
   }
 
   return (
@@ -58,26 +106,24 @@ const Home = () => {
     </div>
   </header>
 
-  <AddExpenseCard/>
+  <ExpenseContext.Provider value={{state,dispatch}}>
+    <AddExpenseCard/>
+  </ExpenseContext.Provider>
+
+  
   <div className="display div container mx-auto mt-10 max-w-md shadow-lg">
   <div className="border-2 border-gray-200 p-5 rounded-md bg-white shadow-sm">
   <ul>
-            <li>
-                Item 1
-            </li>
-            <li>
-                Item 1
-            </li>
-            <li>
-                Item 1
-            </li>
-            <li>
-                Item 1
-            </li>
-            <li>
-                Item 1
-            </li>
-        </ul>
+  {
+    state.expenses.map((expense)=>{
+      return <ExpenseItem 
+      key={expense.id}
+      dispatch={dispatch}
+      {...expense} />
+    })
+  }
+           
+ </ul>
 
   </div>
   
